@@ -2,116 +2,58 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { ZoomParallax } from './ui/ZoomParallax';
 
 const TeamsSection = () => {
+  // Images for the zoom parallax effect
+  const parallaxImages = [
+    { src: '/images/shine/01-woman-popsicle.png', alt: 'Woman with popsicle' },
+    { src: '/images/shine/02-billie-pink-product.png', alt: 'Billie product' },
+    { src: '/images/shine/03-coca-cola-cans.png', alt: 'Coca-Cola cans' },
+    { src: '/images/shine/04-phone-cases.png', alt: 'Phone cases' },
+    { src: '/images/shine/05-tfit-skincare-beach.png', alt: 'Skincare product' },
+    { src: '/images/shine/07-nike-golf-ball.png', alt: 'Nike golf ball' },
+    { src: '/images/shine/08-mcdonalds-happy-meal.png', alt: 'McDonalds Happy Meal' },
+  ];
+
   return (
-    <section className="mt-[255px] bg-white">
-      <div className="max-w-7xl mx-auto px-8 md:px-12">
-        <div className="flex flex-col lg:flex-row gap-[43px] items-center">
-          {/* Left side - Grid Visual */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            className="relative h-[663.496px] w-[510.076px] flex-shrink-0"
-          >
-            {/* Grid of boxes matching exact Figma layout */}
-            {/* Top left large box */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1, duration: 0.5 }}
-              className="absolute left-[15px] top-0 w-[280.438px] h-[143.353px] bg-[#010b10] rounded-[13.317px]"
-            />
+    <section className="mt-[255px] bg-white relative">
+      {/* Zoom Parallax Effect */}
+      <ZoomParallax images={parallaxImages} />
 
-            {/* Top right small box */}
+      {/* Text Overlay - Fixed position during scroll */}
+      <div className="absolute top-0 left-0 w-full h-screen pointer-events-none sticky flex items-center" style={{ top: 0 }}>
+        <div className="max-w-7xl mx-auto px-8 md:px-12 w-full">
+          <div className="flex justify-end">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ x: 50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="absolute left-[324.42px] top-[47.79px] w-[123.769px] h-[126.119px] bg-[#010b10] rounded-[13.317px]"
-            />
-
-            {/* Middle left small box */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-              className="absolute left-0 top-[225px] w-[123.769px] h-[114.369px] bg-[#010b10] rounded-[13.317px]"
-            />
-
-            {/* Center large horizontal box */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-              className="absolute left-[163.84px] top-[202.1px] w-[346.24px] h-[160.586px] bg-[#010b10] rounded-[13.317px]"
-            />
-
-            {/* Bottom left large box */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="absolute left-[26.75px] top-[390.89px] w-[280.438px] h-[130.036px] bg-[#010b10] rounded-[13.317px]"
-            />
-
-            {/* Bottom center small box */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-              className="absolute left-[171.67px] top-[549.13px] w-[123.769px] h-[114.369px] bg-[#010b10] rounded-[13.317px]"
-            />
-
-            {/* Bottom right tall box (rotated 180deg) */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.7, duration: 0.5 }}
-              className="absolute left-[350.27px] top-[386.97px] w-[123.769px] h-[267.905px]"
+              transition={{ duration: 0.6 }}
+              className="w-[739px] flex-shrink-0 pointer-events-auto"
             >
-              <div className="w-full h-full bg-[#010b10] rounded-[13.317px] rotate-180" />
+              <h2 className="text-[107px] font-semibold leading-[99px] tracking-[-6.4px]">
+                <motion.span
+                  initial={{ opacity: 0.45 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ amount: 0.6 }}
+                  transition={{ duration: 0.6 }}
+                  className="text-[#0f0f0f]"
+                >
+                  Built for teams that move{' '}
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0.45 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ amount: 0.6 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="text-[#a5a5a5]"
+                >
+                  fast, test ideas often, and scale the video that performs.
+                </motion.span>
+              </h2>
             </motion.div>
-          </motion.div>
-
-          {/* Right side - Text with scroll-based highlighting */}
-          <motion.div
-            initial={{ x: 50 }}
-            whileInView={{ x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="w-[739.018px] flex-shrink-0"
-          >
-            <h2 className="text-[107.295px] font-semibold leading-[98.711px] tracking-[-6.4377px]">
-              <motion.span
-                initial={{ opacity: 0.45 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ amount: 0.6 }}
-                transition={{ duration: 0.6 }}
-                className="text-[#0f0f0f]"
-              >
-                Built for teams that move{' '}
-              </motion.span>
-              <motion.span
-                initial={{ opacity: 0.45 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ amount: 0.6 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-[#a5a5a5]"
-              >
-                fast, test ideas often, and scale the video that performs.
-              </motion.span>
-            </h2>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

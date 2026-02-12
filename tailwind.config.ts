@@ -71,6 +71,7 @@ const config: Config = {
         'slide-up': 'slideUp 0.6s ease-out',
         'float': 'float 3s ease-in-out infinite',
         'marquee': 'marquee var(--duration) linear infinite',
+        'marquee-reverse': 'marquee-reverse var(--duration) linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -88,6 +89,10 @@ const config: Config = {
         marquee: {
           from: { transform: 'translateX(0)' },
           to: { transform: 'translateX(calc(-100% - var(--gap)))' },
+        },
+        'marquee-reverse': {
+          from: { transform: 'translateX(calc(-100% - var(--gap)))' },
+          to: { transform: 'translateX(0)' },
         },
       },
     },

@@ -25,16 +25,17 @@ export function TestimonialsSection({
       className
     )}>
       <div className="mx-auto flex max-w-container flex-col items-center gap-4 text-center sm:gap-16">
-        <div className="flex flex-col items-center gap-4 px-4 sm:gap-8">
-          <h2 className="max-w-[720px] text-3xl font-semibold leading-tight sm:text-5xl sm:leading-tight">
+        <div className="flex flex-col items-center gap-[13px] px-4">
+          <h2 className="text-[77px] font-semibold leading-[71px] tracking-[-4.6px] text-[#0a0a0a] text-center">
             {title}
           </h2>
-          <p className="text-md max-w-[600px] font-medium text-muted-foreground sm:text-xl">
+          <p className="text-[15px] leading-[24px] text-black text-center max-w-[600px]">
             {description}
           </p>
         </div>
 
-        <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
+        <div className="relative flex w-full flex-col items-center justify-center overflow-hidden gap-4">
+          {/* First marquee - moves left */}
           <div className="group flex overflow-hidden p-2 [--gap:1rem] [gap:var(--gap)] flex-row [--duration:30s]">
             {/* First track */}
             <div className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row group-hover:[animation-play-state:paused]">
@@ -50,6 +51,28 @@ export function TestimonialsSection({
               {testimonials.map((testimonial, i) => (
                 <TestimonialCard
                   key={`second-${i}`}
+                  {...testimonial}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Second marquee - moves right (opposite direction) */}
+          <div className="group flex overflow-hidden p-2 [--gap:1rem] [gap:var(--gap)] flex-row [--duration:35s]">
+            {/* First track - reverse */}
+            <div className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee [animation-direction:reverse] flex-row group-hover:[animation-play-state:paused]">
+              {testimonials.slice().reverse().map((testimonial, i) => (
+                <TestimonialCard
+                  key={`reverse-first-${i}`}
+                  {...testimonial}
+                />
+              ))}
+            </div>
+            {/* Duplicate track for seamless loop - reverse */}
+            <div className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee [animation-direction:reverse] flex-row group-hover:[animation-play-state:paused]">
+              {testimonials.slice().reverse().map((testimonial, i) => (
+                <TestimonialCard
+                  key={`reverse-second-${i}`}
                   {...testimonial}
                 />
               ))}

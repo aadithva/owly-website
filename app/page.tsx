@@ -10,30 +10,25 @@ import { TestimonialsSection } from '@/components/ui/testimonials-with-marquee';
 
 export default function Home() {
   return (
-    <div className="bg-white min-h-screen">
-      <div className="max-w-[1442px] mx-auto px-4">
-      {/* Hero Section with Image Background */}
+    <div className="bg-white min-h-screen pt-[70px]">
+      {/* Hero Section with Image Background - Full Width */}
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="relative h-[792px] overflow-hidden rounded-[14px] max-w-[1401px] mx-auto"
+        className="relative h-[792px] w-full px-2"
       >
         {/* Background Image */}
-        <div className="absolute inset-0 overflow-hidden rounded-[14px]">
-          <Image
+        <div className="absolute inset-x-2 inset-y-0 overflow-hidden pointer-events-none rounded-[14px]">
+          <img
             src="/images/hero/hero-background.png"
             alt="Hero background"
-            fill
-            className="object-cover"
-            priority
+            className="absolute w-full h-full object-cover scale-125"
           />
-          {/* Dark gradient overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/65 to-transparent h-[228px]"></div>
         </div>
 
-        {/* Content */}
-        <div className="relative px-[38px] py-[46px] flex justify-between items-start">
+        {/* Gradient Overlay */}
+        <div className="absolute inset-x-2 top-0 h-[228px] bg-gradient-to-b from-black/65 to-transparent rounded-t-[14px] px-[38px] py-[46px] flex justify-between items-start">
           {/* Left side - Main headline */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -60,14 +55,15 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* Teams Section */}
+      {/* Teams Section - Full Width Parallax */}
       <TeamsSection />
 
-      {/* Try it yourself Section */}
-      <div className="mt-[255px]">
+      {/* Try it yourself Section - Full Width */}
+      <div className="mt-[255px] relative z-10 bg-white">
         <InteractiveProduct />
       </div>
 
+      <div className="max-w-[1442px] mx-auto px-4">
       {/* Video Formats Text Section */}
       <section className="mt-[255px] py-20 bg-white">
         <div className="max-w-7xl mx-auto px-8 md:px-12">
@@ -218,46 +214,46 @@ export default function Home() {
       {/* Still not convinced Section - Testimonials */}
       <div className="mt-[255px]">
         <TestimonialsSection
-          title="Still not convinced?"
-          description="See what marketing teams are saying about Owly"
+          title="Still not convinced"
+          description="Stop launching ads based on guesswork. Use a structured creative workflow trusted by modern performance teams."
           testimonials={[
             {
               author: {
                 name: "Sarah Chen",
-                handle: "@sarahchen_marketing",
-                avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face"
+                handle: "@sarahchen • Marketing Director at TechFlow",
+                avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
               },
               text: "Owly transformed our ad workflow completely. We went from 2-week production cycles to launching new creatives in hours.",
             },
             {
               author: {
                 name: "Marcus Johnson",
-                handle: "@marcusj_ads",
-                avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+                handle: "@marcusj • Performance Lead at GrowthLabs",
+                avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
               },
               text: "The iteration speed is unreal. We can now test 10x more creative variations and actually see what resonates with our audience.",
             },
             {
               author: {
                 name: "Emily Rodriguez",
-                handle: "@emilyrod_creative",
-                avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face"
+                handle: "@emilyrod • Creative Director at BrandCraft",
+                avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
               },
               text: "Finally, a tool that understands the needs of performance marketing teams. Brand consistency + speed = chef's kiss.",
             },
             {
               author: {
                 name: "David Park",
-                handle: "@davidpark_growth",
-                avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                handle: "@davidpark • Growth Manager at ScaleUp",
+                avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
               },
               text: "Our ROAS improved 40% after switching to Owly. The ability to rapidly test and iterate on creatives is a game changer.",
             },
             {
               author: {
                 name: "Lisa Thompson",
-                handle: "@lisathompson_brand",
-                avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
+                handle: "@lisathompson • Brand Manager at MediaPro",
+                avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
               },
               text: "As a brand manager, I love how Owly keeps everything on-brand while giving our performance team the speed they need.",
             },
@@ -458,54 +454,146 @@ export default function Home() {
       </section>
 
       {/* Get in touch today Section */}
-      <section className="mt-[255px] py-20 bg-gradient-to-br from-emerald-100 via-teal-50 to-white flex items-center">
-        <div className="max-w-7xl mx-auto px-8 md:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Left side - Form mockup */}
+      <section className="mt-[255px] py-20 bg-white">
+        <div className="max-w-[1200px] mx-auto px-8">
+          <div className="flex flex-col lg:flex-row gap-[69px] items-center">
+            {/* Left side - Form with background image */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="bg-white/60 backdrop-blur-sm rounded-3xl p-8 border border-white shadow-xl"
+              className="relative w-full lg:w-[655px] h-[645px] rounded-[35px] overflow-hidden flex-shrink-0"
             >
-              <div className="space-y-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-neutral-700">Name</label>
-                  <div className="h-12 bg-white rounded-xl border border-neutral-200"></div>
+              {/* Background Image */}
+              <div className="absolute inset-0 overflow-hidden">
+                <img
+                  src="/images/contact/contact-background.png"
+                  alt="Contact background"
+                  className="w-full h-full object-cover scale-150"
+                />
+              </div>
+
+              {/* Form Container */}
+              <div className="absolute left-[72px] top-[78px] w-[511px] h-[489px]">
+                {/* Glassmorphism background */}
+                <div className="absolute inset-0 bg-white/30 backdrop-blur-md rounded-[20px] border border-white/50" />
+
+                {/* Form Fields */}
+                <div className="relative p-8 flex flex-col gap-7">
+                  {/* Name and Email Row */}
+                  <div className="flex gap-5">
+                    <div className="flex flex-col gap-2 flex-1">
+                      <label className="text-[12px] text-black">Name</label>
+                      <input
+                        type="text"
+                        placeholder="Ex; Jhon"
+                        className="h-[39px] bg-white/50 border-none rounded-[10px] px-5 text-[12px] text-black/70 placeholder:text-black/50 focus:outline-none focus:ring-2 focus:ring-white"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2 flex-1">
+                      <label className="text-[12px] text-black">Email</label>
+                      <input
+                        type="email"
+                        placeholder="abc@gmail.com"
+                        className="h-[39px] bg-white/50 border-none rounded-[10px] px-5 text-[12px] text-black/70 placeholder:text-black/50 focus:outline-none focus:ring-2 focus:ring-white"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Phone and Company Row */}
+                  <div className="flex gap-5">
+                    <div className="flex flex-col gap-2 flex-1">
+                      <label className="text-[12px] text-black">Phone</label>
+                      <input
+                        type="tel"
+                        placeholder="(123) 456 - 789"
+                        className="h-[39px] bg-white/50 border-none rounded-[10px] px-5 text-[12px] text-black/70 placeholder:text-black/50 focus:outline-none focus:ring-2 focus:ring-white"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2 flex-1">
+                      <label className="text-[12px] text-black">Company</label>
+                      <input
+                        type="text"
+                        placeholder="Ex: Microsoft"
+                        className="h-[39px] bg-white/50 border-none rounded-[10px] px-5 text-[12px] text-black/70 placeholder:text-black/50 focus:outline-none focus:ring-2 focus:ring-white"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Message */}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-[12px] text-black">Message</label>
+                    <textarea
+                      placeholder="Please type your message here..."
+                      className="h-[139px] bg-white/40 border-none rounded-[10px] px-5 py-5 text-[12px] text-black/70 placeholder:text-black/50 resize-none focus:outline-none focus:ring-2 focus:ring-white"
+                    />
+                  </div>
+
+                  {/* Send Button */}
+                  <button className="w-full h-[59px] bg-white/20 backdrop-blur-md border border-white/40 rounded-[15px] flex items-center justify-center gap-2 text-[14px] text-black shadow-lg hover:bg-white/30 transition-colors">
+                    Send Message
+                    <svg className="w-5 h-5 rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                  </button>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-neutral-700">Email</label>
-                  <div className="h-12 bg-white rounded-xl border border-neutral-200"></div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-neutral-700">Message</label>
-                  <div className="h-32 bg-white rounded-xl border border-neutral-200"></div>
-                </div>
-                <button className="w-full py-4 bg-neutral-900 text-white rounded-xl font-semibold hover:bg-neutral-800 transition-colors">
-                  Send Message
-                </button>
               </div>
             </motion.div>
 
-            {/* Right side - Text */}
+            {/* Right side - Contact Info */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex flex-col gap-[49px] w-full lg:w-[417px]"
             >
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Get in touch<br />
-                today
-              </h2>
-              <p className="text-xl text-neutral-600 mb-8">
-                Ready to transform your ad workflow? Let's talk about how Owly can help your team create better video ads, faster.
-              </p>
-              <div className="space-y-4 text-neutral-600">
-                <p>✓ Free consultation</p>
-                <p>✓ Custom demo tailored to your needs</p>
-                <p>✓ No commitment required</p>
+              {/* Header */}
+              <div className="flex flex-col gap-[13px]">
+                <div className="border border-[#e0e0e0] rounded-[13px] px-3 py-2 w-fit">
+                  <span className="text-[14px] text-black uppercase">Let's talk</span>
+                </div>
+                <h2 className="text-[77px] font-semibold leading-[71px] tracking-[-4.6px] text-[#0a0a0a]">
+                  Get in touch today
+                </h2>
+                <p className="text-[14px] text-[#6b6b6b] leading-normal">
+                  Lorem ipsum dolor sit amet consectetur adipiscing elit nulla adipiscing tincidunt interdum tellus du.
+                </p>
+              </div>
+
+              {/* Contact Links */}
+              <div className="flex flex-col w-[296px]">
+                {/* Email */}
+                <div className="flex items-center gap-1.5 py-3.5 border-b border-[#f2f2f2]">
+                  <div className="p-2.5 rounded-[9px]">
+                    <svg className="w-4 h-3" fill="none" stroke="#616161" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <span className="text-[14px] text-[#616161]">contact@company.com</span>
+                </div>
+
+                {/* Phone */}
+                <div className="flex items-center gap-1.5 py-3.5 border-b border-[#f2f2f2]">
+                  <div className="p-2.5 rounded-[9px]">
+                    <svg className="w-4 h-4" fill="none" stroke="#616161" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                  </div>
+                  <span className="text-[14px] text-[#616161]">(123) 456 - 789</span>
+                </div>
+
+                {/* Location */}
+                <div className="flex items-center gap-1.5 py-3.5">
+                  <div className="p-2.5 rounded-[9px]">
+                    <svg className="w-4 h-5" fill="none" stroke="#616161" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </div>
+                  <span className="text-[14px] text-[#616161]">794 Mcallister St San Francisco, 94102</span>
+                </div>
               </div>
             </motion.div>
           </div>

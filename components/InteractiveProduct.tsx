@@ -1,38 +1,64 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Mic, ArrowRight } from 'lucide-react';
+import { Paperclip, PlusIcon, ArrowUp } from 'lucide-react';
 
 const InteractiveProduct = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleInteraction = () => {
-    window.location.href = '/signin';
+    // Placeholder - no redirect for demo
+  };
+
+  const adjustHeight = useCallback((reset?: boolean) => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    if (reset) {
+      textarea.style.height = '60px';
+      return;
+    }
+
+    textarea.style.height = '60px';
+    const newHeight = Math.max(60, Math.min(textarea.scrollHeight, 200));
+    textarea.style.height = `${newHeight}px`;
+  }, []);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (inputValue.trim()) {
+        setInputValue('');
+        adjustHeight(true);
+      }
+    }
   };
 
   return (
     <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-8 md:px-12">
-        {/* Heading */}
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-[68.6px] font-semibold leading-[63.111px] tracking-[-4.116px] text-[#0a0a0a] text-center mb-[68px]"
-        >
-          Try it yourself.
-        </motion.h2>
+      {/* Heading */}
+      <motion.h2
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="text-[68.6px] font-semibold leading-[63.111px] tracking-[-4.116px] text-[#0a0a0a] text-center mb-[68px] px-8"
+      >
+        Try it yourself.
+      </motion.h2>
 
-        {/* Interactive Product Container */}
+      {/* Interactive Product Container - Full Width */}
+      <div className="px-2">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="bg-black rounded-[12px] p-2 flex gap-[3px] max-w-[1396px] mx-auto h-[875px] overflow-hidden"
+          className="bg-black rounded-[14px] p-2 flex gap-[3px] w-full h-[875px] overflow-hidden"
         >
           {/* Animated Sidebar */}
           <motion.div
@@ -289,83 +315,58 @@ const InteractiveProduct = () => {
 
                 {/* Input Bar */}
                 <div className="mt-[60px] relative z-10">
-                  <div className="bg-[#171717] rounded-[14px] shadow-[0px_4px_17px_0px_rgba(0,0,0,0.17),inset_0px_4px_3px_0px_rgba(0,0,0,0.03)] h-[99px] flex items-center justify-between px-[12px]">
-                    <div className="flex items-center gap-[6px]">
-                      {/* Plus Button */}
-                      <button
+                  <div className="bg-neutral-900 rounded-xl border border-neutral-800">
+                    <div className="overflow-y-auto">
+                      <textarea
+                        ref={textareaRef}
+                        value={inputValue}
+                        onChange={(e) => {
+                          setInputValue(e.target.value);
+                          adjustHeight();
+                        }}
+                        onKeyDown={handleKeyDown}
                         onClick={handleInteraction}
-                        className="w-[23px] h-[23px] flex items-center justify-center hover:opacity-80 transition-opacity"
-                      >
-                        <Image
-                          src="/images/interactive-product/plus-icon.svg"
-                          alt="Add"
-                          width={23}
-                          height={23}
-                        />
-                      </button>
-
-                      {/* Create Tag */}
-                      <div className="bg-[#111] rounded-[8px] px-[8px] py-[8px] flex items-center gap-[8px] h-[29px]">
-                        <Image
-                          src="/images/interactive-product/tag-create.svg"
-                          alt="Create"
-                          width={14}
-                          height={14}
-                        />
-                        <span className="text-[#27fda7] text-[12px]">Create</span>
-                      </div>
-
-                      {/* Duration */}
-                      <div className="flex items-center gap-[8px] px-[8px]">
-                        <Image
-                          src="/images/interactive-product/tag-duration.svg"
-                          alt="Duration"
-                          width={14}
-                          height={14}
-                        />
-                        <span className="text-[#9a9a9a] text-[14px]">30 sec</span>
-                      </div>
-
-                      <div className="h-[16px] w-px bg-[#333]" />
-
-                      {/* Aspect Ratio */}
-                      <div className="flex items-center gap-[8px] px-[8px]">
-                        <Image
-                          src="/images/interactive-product/tag-ratio.svg"
-                          alt="Ratio"
-                          width={16}
-                          height={16}
-                        />
-                        <span className="text-[#9a9a9a] text-[14px]">9:16</span>
-                      </div>
-
-                      <div className="h-[16px] w-px bg-[#333]" />
-
-                      {/* Style */}
-                      <div className="flex items-center gap-[8px] px-[8px]">
-                        <Image
-                          src="/images/interactive-product/tag-style.svg"
-                          alt="Style"
-                          width={16}
-                          height={16}
-                        />
-                        <span className="text-[#9a9a9a] text-[14px]">Cinematic</span>
-                      </div>
+                        placeholder="Ask Owly a question..."
+                        className="w-full px-4 py-3 resize-none bg-transparent border-none text-white text-sm focus:outline-none focus:ring-0 placeholder:text-neutral-500 placeholder:text-sm min-h-[60px]"
+                        style={{ overflow: 'hidden' }}
+                      />
                     </div>
 
-                    <div className="flex items-center gap-[6px]">
-                      <button
-                        onClick={handleInteraction}
-                        className="w-[35px] h-[35px] flex items-center justify-center hover:bg-[rgba(255,255,255,0.05)] rounded-full transition-colors"
-                      >
-                        <Mic className="w-[20px] h-[20px] text-gray-400" />
-                      </button>
-                      <button
-                        onClick={handleInteraction}
-                        className="w-[35px] h-[35px] bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors"
-                      >
-                        <ArrowRight className="w-[20px] h-[20px] text-black rotate-[-90deg]" />
-                      </button>
+                    <div className="flex items-center justify-between p-3">
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={handleInteraction}
+                          className="group p-2 hover:bg-neutral-800 rounded-lg transition-colors flex items-center gap-1"
+                        >
+                          <Paperclip className="w-4 h-4 text-white" />
+                          <span className="text-xs text-zinc-400 hidden group-hover:inline transition-opacity">
+                            Attach
+                          </span>
+                        </button>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={handleInteraction}
+                          className="px-2 py-1 rounded-lg text-sm text-zinc-400 transition-colors border border-dashed border-zinc-700 hover:border-zinc-600 hover:bg-zinc-800 flex items-center justify-between gap-1"
+                        >
+                          <PlusIcon className="w-4 h-4" />
+                          Project
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleInteraction}
+                          className={`px-1.5 py-1.5 rounded-lg text-sm transition-colors border border-zinc-700 hover:border-zinc-600 hover:bg-zinc-800 flex items-center justify-between gap-1 ${
+                            inputValue.trim() ? 'bg-white text-black' : 'text-zinc-400'
+                          }`}
+                        >
+                          <ArrowUp
+                            className={`w-4 h-4 ${inputValue.trim() ? 'text-black' : 'text-zinc-400'}`}
+                          />
+                          <span className="sr-only">Send</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>

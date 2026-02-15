@@ -72,7 +72,7 @@ const Navigation = () => {
 
   return (
     <div className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-400 ease-out ${isVisible ? 'translate-y-0' : 'translate-y-[-100%]'}`}>
-      <header className={`flex flex-col items-center px-4 md:px-6 lg:px-8 py-[14px] w-full transition-all duration-300 ${hasScrolled ? 'backdrop-blur-md bg-white/95 shadow-md border-b border-[#e5e5e5]' : 'bg-white'}`}>
+      <header className={`flex flex-col items-center px-4 md:px-6 lg:px-8 py-[14px] w-full transition-all duration-300 ${hasScrolled ? 'backdrop-blur-md bg-white/95 border-b border-[#e5e5e5]' : 'bg-white'}`}>
 
       <div className="flex items-center justify-between w-full gap-x-6 sm:gap-x-8 relative">
         {/* Logo */}

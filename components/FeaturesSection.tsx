@@ -44,13 +44,13 @@ const FeaturesSection = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const inView = entry.isIntersecting && entry.intersectionRatio > 0.3;
+        const inView = entry.isIntersecting;
         setIsInView(inView);
         if (inView && !hasAnimated) {
           setHasAnimated(true);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.1, rootMargin: '-50px' }
     );
 
     if (sectionRef.current) {
@@ -69,7 +69,7 @@ const FeaturesSection = () => {
           const nextIndex = (currentIndex + 1) % featureIds.length;
           return featureIds[nextIndex];
         });
-      }, 2500);
+      }, 3000);
     } else {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
@@ -89,7 +89,7 @@ const FeaturesSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen py-20 md:py-28 lg:py-32 bg-white flex items-center"
+      className="py-20 md:py-28 lg:py-32 bg-white"
     >
       <div className="page-container w-full">
         <div className="flex flex-col lg:flex-row gap-[60px] lg:gap-[100px] items-center justify-between">
@@ -176,7 +176,7 @@ const FeaturesSection = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.4, ease: 'easeOut' }}
+                transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
                 className="absolute inset-0"
               >
                 <Image

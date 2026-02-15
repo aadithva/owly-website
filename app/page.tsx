@@ -167,8 +167,8 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Animated Circular Workflow Diagram - Hidden for now */}
-              <div className="hidden absolute bottom-[10px] sm:bottom-[15px] lg:bottom-[20px] left-1/2 -translate-x-1/2 scale-[0.65] sm:scale-[0.85] lg:scale-100 origin-bottom">
+              {/* Animated Circular Workflow Diagram */}
+              <div className="absolute bottom-[10px] sm:bottom-[15px] lg:bottom-[20px] left-1/2 -translate-x-1/2 scale-[0.65] sm:scale-[0.85] lg:scale-100 origin-bottom">
                 <WorkflowOrbit />
               </div>
             </motion.div>
@@ -225,13 +225,15 @@ export default function Home() {
           ]}
         />
       </div>
+      </div>
+      {/* End page-container - shine section needs full width */}
 
       {/* Want Your Business to Shine - Matching Figma Layout */}
-      <section className="mt-[clamp(80px,10vw,120px)] py-12 lg:py-20 bg-white">
-        <div className="page-container-wide">
+      <section className="mt-[120px] py-12 lg:py-20 bg-white">
+        <div className="max-w-[1495px] mx-auto px-4 lg:px-0">
 
           {/* Mobile Layout - Hidden on desktop */}
-          <div className="xl:hidden flex flex-col gap-8">
+          <div className="lg:hidden flex flex-col gap-8">
             {/* Heading */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -245,7 +247,7 @@ export default function Home() {
                   Owly your video partner
                 </span>
               </div>
-              <h2 className="heading-sm-fluid">
+              <h2 className="text-[40px] sm:text-[56px] font-semibold leading-[1] tracking-[-2px] text-[#0a0a0a]">
                 Want Your Business to Shine?
               </h2>
             </motion.div>
@@ -381,9 +383,8 @@ export default function Home() {
             </motion.div>
           </div>
 
-          {/* Desktop Layout - Hidden on mobile/tablet, scales with viewport */}
-          <div className="hidden xl:block relative" style={{ height: 'clamp(700px, 66vw, 993px)' }}>
-            {/* Scale factor: original design was 1495px wide, use percentage positioning */}
+          {/* Desktop Layout - Hidden on mobile */}
+          <div className="hidden lg:block relative h-[993px]">
 
             {/* Left Column - Woman with Popsicle */}
             <motion.div
@@ -391,8 +392,7 @@ export default function Home() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="absolute left-0 rounded-[21px] overflow-hidden z-[10]"
-              style={{ top: '9%', width: 'clamp(220px, 24%, 357px)', height: 'clamp(280px, 46%, 459px)' }}
+              className="absolute left-0 top-[89px] w-[357px] h-[459px] rounded-[21px] overflow-hidden z-[10]"
             >
               <Image
                 src="/images/shine/01-woman-popsicle.png"
@@ -411,8 +411,7 @@ export default function Home() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="absolute left-0 rounded-[21px] overflow-hidden z-[10]"
-              style={{ top: '57.5%', width: 'clamp(220px, 24%, 357px)', height: 'clamp(260px, 42.5%, 422px)' }}
+              className="absolute left-0 top-[571px] w-[357px] h-[422px] rounded-[21px] overflow-hidden z-[10]"
             >
               <Image
                 src="/images/shine/02-billie-pink-product.png"
@@ -431,8 +430,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="absolute z-[5]"
-              style={{ left: '41%', top: '-4%', width: 'clamp(450px, 50%, 750px)', height: 'clamp(300px, 50%, 500px)' }}
+              className="absolute left-[620px] top-[-40px] w-[750px] h-[500px] z-[5]"
             >
               <Image
                 src="/images/shine/06-daisy-flowers.png"
@@ -448,8 +446,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="absolute z-20"
-              style={{ left: '27%', top: '9%', width: 'clamp(350px, 38.5%, 577px)' }}
+              className="absolute left-[400px] top-[89px] w-[577px] z-20"
             >
               <div className="flex flex-col gap-[21px] items-start">
                 <div className="border border-[#e0e0e0] rounded-[13px] px-[12px] py-[8px]">
@@ -457,7 +454,7 @@ export default function Home() {
                     Owly your video partner
                   </span>
                 </div>
-                <h2 className="heading-xl-fluid">
+                <h2 className="text-[111.325px] font-semibold leading-[102.419px] tracking-[-6.6795px] text-[#0a0a0a]">
                   Want Your<br />Business to<br />Shine?
                 </h2>
               </div>
@@ -469,8 +466,7 @@ export default function Home() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="absolute rounded-[21px] overflow-hidden z-[10]"
-              style={{ left: '25.7%', top: '48%', width: 'clamp(220px, 24%, 357px)', height: 'clamp(320px, 51.8%, 514px)' }}
+              className="absolute left-[384px] top-[479px] w-[357px] h-[514px] rounded-[21px] overflow-hidden z-[10]"
             >
               <Image
                 src="/images/shine/03-coca-cola-cans.png"
@@ -489,8 +485,7 @@ export default function Home() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="absolute rounded-[21px] overflow-hidden z-[10]"
-              style={{ left: '51%', top: '40%', width: 'clamp(220px, 24%, 357px)', height: 'clamp(270px, 43.4%, 431px)' }}
+              className="absolute left-[762px] top-[396px] w-[357px] h-[431px] rounded-[21px] overflow-hidden z-[10]"
             >
               <Image
                 src="/images/shine/04-phone-cases.png"
@@ -509,13 +504,12 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="absolute flex flex-col items-center gap-[18px]"
-              style={{ left: '51%', top: '85%', width: 'clamp(220px, 24%, 357px)' }}
+              className="absolute left-[761px] top-[846px] w-[357px] flex flex-col items-center gap-[18px]"
             >
-              <p className="font-normal text-[14px] xl:text-[16px] text-[#6b6b6b] w-full max-w-[344px]">
+              <p className="font-normal text-[16px] text-[#6b6b6b] w-[344px]">
                 Generate branded promotional content that converts viewers into customers.
               </p>
-              <button className="w-full h-[clamp(60px,6vw,87px)] bg-black text-white text-[clamp(16px,1.6vw,24px)] font-bold rounded-[20px] hover:bg-neutral-800 transition-colors flex items-center justify-center">
+              <button className="w-full h-[87px] bg-black text-white text-[24px] font-bold rounded-[20px] hover:bg-neutral-800 transition-colors flex items-center justify-center">
                 Try it free
               </button>
             </motion.div>
@@ -526,8 +520,7 @@ export default function Home() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="absolute rounded-[22px] overflow-hidden z-[1]"
-              style={{ left: '76%', top: '9%', width: 'clamp(200px, 24%, 357px)', height: 'clamp(140px, 24%, 250px)' }}
+              className="absolute left-[1030px] top-[89px] w-[439px] h-[289px] rounded-[22px] overflow-hidden z-[1]"
             >
               <Image
                 src="/images/shine/05-tfit-skincare-beach.png"
@@ -543,8 +536,7 @@ export default function Home() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="absolute rounded-[21px] overflow-hidden z-[10]"
-              style={{ left: '76%', top: '40%', width: 'clamp(220px, 24%, 357px)', height: 'clamp(210px, 33.5%, 333px)' }}
+              className="absolute left-[1138px] top-[396px] w-[357px] h-[333px] rounded-[21px] overflow-hidden z-[10]"
             >
               <Image
                 src="/images/shine/07-nike-golf-ball.png"
@@ -563,8 +555,7 @@ export default function Home() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="absolute rounded-[21px] overflow-hidden z-[10]"
-              style={{ left: '76%', top: '75%', width: 'clamp(220px, 24%, 357px)', height: 'clamp(155px, 25%, 248px)' }}
+              className="absolute left-[1138px] top-[745px] w-[357px] h-[248px] rounded-[21px] overflow-hidden z-[10]"
             >
               <Image
                 src="/images/shine/08-mcdonalds-happy-meal.png"
@@ -727,7 +718,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      </div>
     </div>
   );
 }

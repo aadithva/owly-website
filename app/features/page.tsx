@@ -15,8 +15,6 @@ import {
   BarChart3,
   PieChart,
 } from 'lucide-react';
-import { StatsHeroBento } from '@/components/features/StatsHeroBento';
-import { WorkflowShowcase } from '@/components/features/WorkflowShowcase';
 import { AllFeaturesBentoGrid } from '@/components/features/AllFeaturesBentoGrid';
 
 // All features data consolidated
@@ -104,13 +102,7 @@ const allFeatures = [
 
 export default function FeaturesPage() {
   return (
-    <div className="bg-white">
-      {/* Section 1: Stats Hero with Data Pipeline */}
-      <StatsHeroBento />
-
-      {/* Section 2: Main Workflow Showcase */}
-      <WorkflowShowcase />
-
+    <div className="bg-white pt-24">
       {/* Dark Section Wrapper - extends into footer margin to remove gap */}
       <div className="bg-[#0a0a0a] mb-[-60px] md:mb-[-100px]">
         {/* Section 3: All Features Bento Grid */}

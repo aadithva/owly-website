@@ -8,6 +8,7 @@ import InteractiveProduct from '@/components/InteractiveProduct';
 import { TestimonialsSection } from '@/components/ui/testimonials-with-marquee';
 import WorkflowOrbit from '@/components/WorkflowOrbit';
 import TeamsSection from '@/components/TeamsSection';
+import StatsCounter from '@/components/StatsCounter';
 
 export default function Home() {
   const [shineScale, setShineScale] = useState(1);
@@ -30,7 +31,7 @@ export default function Home() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="relative h-[calc(100vh-80px)] min-h-[500px] w-full px-2 pt-2 pb-[6px] mt-[7px]"
+        className="relative h-[calc(100vh-80px)] min-h-[500px] w-full px-2 pt-2 pb-[6px] mt-[5px]"
       >
         {/* Inner container - creates the rounded inset card with spacing on all sides */}
         <div className="relative w-full h-full rounded-[14px] overflow-hidden">
@@ -62,7 +63,7 @@ export default function Home() {
 
               {/* Description */}
               <p className="text-white text-[16px] sm:text-[22px] md:text-[30px] lg:text-[42px] leading-[1.1] tracking-[-0.5px] sm:tracking-[-1.5px] lg:tracking-[-2.5px] max-w-[850px]">
-                Owly unifies ideation, video creation, editing, publishing, and performance analytics into one intelligent workflow — so every campaign makes the next one better.
+                Owly unifies ideation, video creation, editing, publishing, and performance analytics into one intelligent workflow, so every campaign makes the next one better.
               </p>
             </motion.div>
           </div>
@@ -72,20 +73,20 @@ export default function Home() {
       {/* Teams Section with Zoom Parallax */}
       <TeamsSection />
 
-      {/* White cover to hide parallax bleed */}
-      <div className="relative z-50 bg-white h-[280px] -mt-[280px]" />
+      {/* White cover to hide parallax bleed - reduced to show more of popsicle girl */}
+      <div className="relative z-50 bg-white h-[80px] -mt-[80px]" />
 
       {/* Try it yourself Section - Full Width with Scroll Animation */}
-      <div className="relative z-50 bg-white">
+      <div className="relative z-50 bg-white pt-16 md:pt-24 pb-16 md:pb-24">
         <InteractiveProduct />
       </div>
 
       {/* Features Section - Create ad videos end-to-end */}
-      <div className="relative z-50 bg-white mt-20 md:mt-32">
+      <div className="relative z-50 bg-white">
         <FeaturesSection />
       </div>
 
-      <div className="page-container relative z-20 bg-white">
+      <div className="page-container relative z-50 bg-white">
       {/* Video Formats Text Section */}
       <section className="mt-[40px] sm:mt-[60px] lg:mt-[100px] py-10 sm:py-16 lg:py-20 pb-[40px] sm:pb-[60px] lg:pb-[100px] bg-white">
         <div className="max-w-5xl mx-auto">
@@ -238,6 +239,9 @@ export default function Home() {
           ]}
         />
       </div>
+
+      {/* Stats Counter Section */}
+      <StatsCounter />
       </div>
       {/* End page-container - shine section needs full width */}
 

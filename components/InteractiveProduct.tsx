@@ -54,7 +54,7 @@ const InteractiveProduct = () => {
       <ContainerScroll
         titleComponent={
           <div className="flex flex-col items-center">
-            <h2 className="heading-md-fluid text-center mb-4">
+            <h2 className="heading-xl-fluid text-center mb-4">
               Try it yourself.
             </h2>
             <p className="text-lg md:text-xl text-neutral-600 max-w-2xl text-center">

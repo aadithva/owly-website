@@ -1,13 +1,24 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import { ZoomParallax } from './ui/ZoomParallax';
-import { MagicText } from './ui/magic-text';
 
+/**
+ * TeamsSection - Parallax zoom gallery
+ *
+ * STRUCTURE:
+ * - mt-[255px]: Gap between hero and parallax start
+ * - pb-[100px]: Padding defines where the section ends after scroll completes
+ * - z-0: Low stacking context so white cover can sit above
+ * - NO overflow-hidden: Would break position:sticky on inner elements
+ *
+ * CLIPPING STRATEGY:
+ * - Images can scale beyond viewport during animation (intended behavior)
+ * - White cover div in page.tsx clips the bottom overflow before next section
+ * - overflow-x:clip on html/body (globals.css) prevents horizontal scrollbar
+ */
 const TeamsSection = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  // Images for the zoom parallax effect
+  // Parallax images - popsicle girl (index 0) is the hero that zooms to fill screen
   const parallaxImages = [
     { src: '/images/shine/01-woman-popsicle.png', alt: 'Woman with popsicle' },
     { src: '/images/shine/02-billie-pink-product.png', alt: 'Billie product' },
@@ -19,20 +30,16 @@ const TeamsSection = () => {
   ];
 
   return (
-    <section ref={sectionRef} className="mt-[255px] bg-white relative z-0 pb-[100px]">
-      {/* Zoom Parallax Effect */}
+    <section className="mt-[255px] bg-white relative z-0 pb-[100px]">
+      {/*
+        ZoomParallax scroll mechanics:
+        - Container: h-[300vh] = 3x viewport height for scroll range
+        - Sticky layer: stays at top:0 during scroll
+        - scrollYProgress: 0→1 as user scrolls through 300vh
+        - Popsicle girl (index 0): scales 1→4x, centered via items-center justify-center
+        - At progress=1: popsicle girl fills viewport, sticky releases, section scrolls away
+      */}
       <ZoomParallax images={parallaxImages} />
-
-      {/* Text Overlay - Fixed position during scroll */}
-      <div className="absolute top-0 left-0 w-full h-screen pointer-events-none sticky flex items-center justify-center z-10 bg-white" style={{ top: 0 }}>
-        <div className="page-container w-full">
-          <MagicText
-            text="Built for teams that move fast, test ideas often, and scale the video that performs."
-            className="heading-xl-fluid text-center justify-center text-black"
-            scrollTarget={sectionRef}
-          />
-        </div>
-      </div>
     </section>
   );
 };

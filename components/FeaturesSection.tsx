@@ -1,220 +1,250 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
+import { GlowingEffect } from '@/components/ui/GlowingEffect';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
 
-const FeaturesSection = () => {
-  const [activeFeature, setActiveFeature] = useState('ideate');
-  const [isInView, setIsInView] = useState(false);
-  const [hasAnimated, setHasAnimated] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+// Feature image component - uses the ideate.png for all cards
+const FeatureImage = () => (
+  <div className="relative w-full h-64 md:h-80 rounded-xl overflow-hidden">
+    <Image
+      src="/images/features/ideate.png"
+      alt="Feature visual"
+      fill
+      className="object-cover"
+    />
+  </div>
+);
 
-  const features = [
-    {
-      id: 'ideate',
-      title: 'Ideate',
-      description: 'Explore campaign ideas, remix existing ads, or clone references from anywhere to start faster.',
-      image: '/images/features/ideate.png',
-    },
-    {
-      id: 'create',
-      title: 'Create',
-      description: 'Build engaging ad videos with our intuitive creation tools and AI-powered assistance.',
-      image: '/images/features/ideate.png',
-    },
-    {
-      id: 'iterate',
-      title: 'Iterate',
-      description: 'Refine and improve your videos based on feedback and performance data.',
-      image: '/images/features/ideate.png',
-    },
-    {
-      id: 'publish',
-      title: 'Publish',
-      description: 'Launch your ad campaigns across multiple platforms seamlessly with one click.',
-      image: '/images/features/ideate.png',
-    },
-  ];
+// Icon components
+const getIcon = (iconType: string) => {
+  switch (iconType) {
+    case 'editor':
+      return (
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+        </svg>
+      );
+    case 'cci':
+      return (
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+};
 
-  const featureIds = features.map(f => f.id);
+interface FeatureCardProps {
+  title: string;
+  description: string;
+  className?: string;
+  iconType?: 'editor' | 'cci';
+  index: number;
+}
 
-  // Intersection Observer to detect when section is in view
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const inView = entry.isIntersecting;
-        setIsInView(inView);
-        if (inView && !hasAnimated) {
-          setHasAnimated(true);
-        }
-      },
-      { threshold: 0.1, rootMargin: '-50px' }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [hasAnimated]);
-
-  // Auto-traverse through features when in view
-  useEffect(() => {
-    if (isInView) {
-      intervalRef.current = setInterval(() => {
-        setActiveFeature((current) => {
-          const currentIndex = featureIds.indexOf(current);
-          const nextIndex = (currentIndex + 1) % featureIds.length;
-          return featureIds[nextIndex];
-        });
-      }, 3000);
-    } else {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-    }
-
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [isInView]);
-
-  const currentFeature = features.find(f => f.id === activeFeature);
-
+// Bottom row card - stacked on mobile, side-by-side on desktop
+const FeatureCard = ({ title, description, className = '', iconType, index }: FeatureCardProps) => {
   return (
-    <section
-      ref={sectionRef}
-      className="py-20 md:py-28 lg:py-32 bg-white"
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.05 }}
+      className={cn('relative', className)}
     >
-      <div className="page-container w-full">
-        <div className="flex flex-col lg:flex-row gap-[60px] lg:gap-[100px] items-center justify-between">
-          {/* Left Column - Features Content */}
-          <div className="w-full lg:w-[450px] flex flex-col gap-[63px]">
-            {/* Text Container */}
-            <div className="flex flex-col gap-[22px]">
-              {/* Features Label */}
-              <span className="text-[11px] font-light uppercase tracking-[6.05px] text-[#010b10]">
-                Features
-              </span>
+      {/* Outer container with GlowingEffect */}
+      <div className="group relative h-full rounded-[26px] p-1">
+        <GlowingEffect
+          blur={0}
+          borderWidth={3}
+          spread={80}
+          glow={true}
+          disabled={false}
+          proximity={64}
+          inactiveZone={0.01}
+        />
 
-              {/* Heading */}
-              <h2 className="heading-sm-fluid text-black">
-                Create ad videos end-to-end
-              </h2>
-
-              {/* Buttons */}
-              <div className="flex flex-wrap gap-3 sm:gap-[12px] items-center">
-                <button className="bg-black text-[#fbfbef] font-semibold text-[16px] sm:text-[19px] tracking-[-1px] sm:tracking-[-1.15px] px-4 sm:px-[17px] py-[10px] h-[46px] sm:h-[50px] rounded-[14px] sm:rounded-[16px] hover:bg-neutral-800 transition-colors duration-200">
-                  Try it free
-                </button>
-                <button className="border border-[#474747] text-[#1a2a3b] font-semibold text-[16px] sm:text-[19px] tracking-[-1px] sm:tracking-[-1.15px] px-4 sm:px-[17px] py-[10px] h-[46px] sm:h-[50px] rounded-[14px] sm:rounded-[16px] hover:bg-neutral-50 transition-colors duration-200">
-                  Book a Demo
-                </button>
-              </div>
+        {/* Inner card with white background */}
+        <div className="relative h-full rounded-[22px] bg-white border border-neutral-200 overflow-hidden flex flex-col">
+          {/* Mobile: Stacked layout like top cards */}
+          <div className="flex flex-col md:hidden">
+            {/* Visual element */}
+            <div className="p-5 pb-0">
+              <FeatureImage />
             </div>
-
-            {/* Features List */}
-            <div className="flex flex-col gap-[37px]">
-              {features.map((feature) => {
-                const isActive = activeFeature === feature.id;
-
-                return (
-                  <div
-                    key={feature.id}
-                    className="flex gap-[16px] items-start cursor-pointer"
-                    onClick={() => setActiveFeature(feature.id)}
-                  >
-                    {/* Vertical Line */}
-                    <div className="flex items-center justify-center w-0 flex-shrink-0">
-                      <div
-                        className="w-[2px] bg-black origin-top transition-all duration-500 ease-out"
-                        style={{
-                          height: isActive ? 106 : 33,
-                          opacity: isActive ? 1 : 0.3,
-                        }}
-                      />
-                    </div>
-
-                    {/* Feature Content */}
-                    <div className="flex flex-col gap-[12px]">
-                      <span
-                        className={`text-[26px] md:text-[32px] tracking-[-1.5px] text-[#010b10] transition-all duration-300 ${
-                          isActive ? 'font-bold opacity-100' : 'font-light opacity-50'
-                        }`}
-                      >
-                        {feature.title}
-                      </span>
-
-                      <div
-                        className="overflow-hidden transition-all duration-500 ease-out"
-                        style={{
-                          maxHeight: isActive ? 100 : 0,
-                          opacity: isActive ? 1 : 0,
-                        }}
-                      >
-                        <p className="text-[15px] md:text-[17px] font-light leading-[24px] text-[#444] max-w-[400px]">
-                          {feature.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+            {/* Text content - centered */}
+            <div className="p-5 text-center">
+              <h3 className="text-[18px] font-semibold tracking-[-0.5px] text-[#0a0a0a] mb-2">
+                {title}
+              </h3>
+              <p className="text-[14px] leading-[22px] text-neutral-500">
+                {description}
+              </p>
             </div>
           </div>
 
-          {/* Right Column - Feature Image */}
-          <div className="w-full lg:flex-1 lg:max-w-[800px] h-[500px] md:h-[600px] lg:h-[680px] relative rounded-[23px] overflow-hidden bg-black">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeFeature}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-                className="absolute inset-0"
-              >
+          {/* Desktop: Side-by-side layout */}
+          <div className="hidden md:flex md:flex-row md:items-stretch md:h-full min-h-[340px]">
+            {/* Left side - Icon and text */}
+            <div className="flex-1 p-6 md:p-8 flex flex-col justify-between">
+              {/* Icon */}
+              {iconType && (
+                <div className="w-10 h-10 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-600 mb-4">
+                  {getIcon(iconType)}
+                </div>
+              )}
+              {/* Text content */}
+              <div>
+                <h3 className="text-[18px] md:text-[20px] font-semibold tracking-[-0.5px] text-[#0a0a0a] mb-2">
+                  {title}
+                </h3>
+                <p className="text-[14px] md:text-[15px] leading-[22px] text-neutral-500">
+                  {description}
+                </p>
+              </div>
+            </div>
+            {/* Right side - Image */}
+            <div className="w-[55%] p-4 flex items-center">
+              <div className="relative w-full h-full min-h-[280px] rounded-xl overflow-hidden">
                 <Image
-                  src={currentFeature?.image || features[0].image}
-                  alt={currentFeature?.title || 'Feature'}
+                  src="/images/features/ideate.png"
+                  alt={title}
                   fill
                   className="object-cover"
-                  priority
                 />
-
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-
-                {/* Feature label */}
-                <div className="absolute bottom-6 left-6">
-                  <span className="text-white text-[14px] font-medium px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-full">
-                    {currentFeature?.title}
-                  </span>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Progress Indicator */}
-            <div className="absolute bottom-6 right-6 flex gap-2 z-10">
-              {features.map((feature) => (
-                <div
-                  key={feature.id}
-                  className="h-1 rounded-full bg-white cursor-pointer transition-all duration-300"
-                  style={{
-                    width: activeFeature === feature.id ? 32 : 8,
-                    opacity: activeFeature === feature.id ? 1 : 0.4,
-                  }}
-                  onClick={() => setActiveFeature(feature.id)}
-                />
-              ))}
+              </div>
             </div>
           </div>
         </div>
+      </div>
+    </motion.div>
+  );
+};
+
+interface TopRowCardProps {
+  title: string;
+  description: string;
+  index: number;
+}
+
+// Top row card - centered content with larger image
+const TopRowCard = ({ title, description, index }: TopRowCardProps) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5, delay: index * 0.05 }}
+    className="relative"
+  >
+    {/* Outer container with GlowingEffect */}
+    <div className="group relative h-full rounded-[26px] p-1">
+      <GlowingEffect
+        blur={0}
+        borderWidth={3}
+        spread={80}
+        glow={true}
+        disabled={false}
+        proximity={64}
+        inactiveZone={0.01}
+      />
+
+      {/* Inner card with white background */}
+      <div className="relative h-full rounded-[22px] bg-white border border-neutral-200 overflow-hidden flex flex-col">
+        {/* Visual element - larger */}
+        <div className="p-5 pb-0">
+          <FeatureImage />
+        </div>
+
+        {/* Text content - centered */}
+        <div className="p-5 md:p-6 text-center">
+          <h3 className="text-[18px] md:text-[22px] font-semibold tracking-[-0.5px] text-[#0a0a0a] mb-2">
+            {title}
+          </h3>
+          <p className="text-[14px] md:text-[15px] leading-[22px] text-neutral-500">
+            {description}
+          </p>
+        </div>
+      </div>
+    </div>
+  </motion.div>
+);
+
+const FeaturesSection = () => {
+  return (
+    <section className="py-16 md:py-24 bg-white">
+      <div className="page-container">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex flex-col gap-4 mb-12 md:mb-16 items-center text-center max-w-5xl mx-auto"
+        >
+          <h2 className="heading-xl-fluid">
+            One workflow from idea to insight
+          </h2>
+          <span className="text-xs font-medium uppercase tracking-[4px] text-neutral-400">
+            Features
+          </span>
+        </motion.div>
+
+        {/* Bento Grid */}
+        <div className="flex flex-col gap-4 md:gap-5">
+          {/* Top Row - 3 equal cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+            <TopRowCard
+              title="Onboarding"
+              description="Import your brand context, product catalog, past ad performance, and audience data. All in one place."
+              index={0}
+            />
+            <TopRowCard
+              title="Ideation"
+              description="Reverse engineer winning creatives, research your audience, and brainstorm campaigns with an AI creative partner."
+              index={1}
+            />
+            <TopRowCard
+              title="Creation"
+              description="Generate storyboards, moodboards, videos, and static social posts. All from a single brief."
+              index={2}
+            />
+          </div>
+
+          {/* Bottom Row - 2 cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+            <FeatureCard
+              title="Editor"
+              description="Converse with an AI editor to add motion graphics, trim clips, color grade, and auto-add B-roll."
+              iconType="editor"
+              index={3}
+            />
+            <FeatureCard
+              title="Publish & Analyze"
+              description="Publish ads and get creative intelligence on what worked, so every campaign improves the next."
+              iconType="cci"
+              index={4}
+            />
+          </div>
+        </div>
+
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex flex-wrap gap-3 mt-12 md:mt-16 justify-center"
+        >
+          <button className="bg-black text-white font-semibold text-base px-6 py-3 rounded-xl hover:bg-neutral-800 transition-colors duration-200">
+            Try it free
+          </button>
+          <button className="border border-neutral-300 text-[#0a0a0a] font-semibold text-base px-6 py-3 rounded-xl hover:bg-neutral-50 transition-colors duration-200">
+            Book a Demo
+          </button>
+        </motion.div>
       </div>
     </section>
   );

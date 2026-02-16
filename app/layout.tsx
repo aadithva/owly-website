@@ -26,14 +26,14 @@ const didactGothic = Didact_Gothic({
 export const metadata: Metadata = {
   metadataBase: new URL('https://owly.studio'),
   title: {
-    default: 'Owly - One Workspace for Ad Campaigns',
+    default: 'Owly | One Workspace for Ad Campaigns',
     template: '%s | Owly',
   },
   description: 'One workspace where marketing teams make ad campaigns together. Storyboard, script, AI video generation, review, all in one place.',
   keywords: ['video ad creation', 'AI video ads', 'marketing team collaboration', 'video ad campaign tool'],
   authors: [{ name: 'Owly' }],
   openGraph: {
-    title: 'Owly - One Workspace for Ad Campaigns',
+    title: 'Owly | One Workspace for Ad Campaigns',
     description: 'Storyboard, script, AI video generation, review. All in one place for marketing teams.',
     siteName: 'Owly',
     type: 'website',
@@ -43,13 +43,13 @@ export const metadata: Metadata = {
         url: 'https://owly.studio/og.jpg',
         width: 1200,
         height: 630,
-        alt: 'Owly - One Workspace for Ad Campaigns',
+        alt: 'Owly | One Workspace for Ad Campaigns',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Owly - One Workspace for Ad Campaigns',
+    title: 'Owly | One Workspace for Ad Campaigns',
     description: 'Storyboard, script, AI video generation, review. All in one place.',
     images: ['https://owly.studio/og.jpg'],
   },

@@ -3,6 +3,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { GlowingEffect } from '@/components/ui/GlowingEffect';
+import HeroSection from '@/components/seo/HeroSection';
+import HowItWorks from '@/components/seo/HowItWorks';
+import FAQSection from '@/components/seo/FAQSection';
 
 interface MakePageProps {
   page: {
@@ -10,60 +14,81 @@ interface MakePageProps {
     headline: string;
     subheadline: string;
     features: { title: string; description: string }[];
+    steps: { step: string; title: string; description: string }[];
+    faqs: { question: string; answer: string }[];
     ctaText: string;
     ctaHref: string;
-    relatedSlugs: string[];
   };
   relatedPages: { slug: string; title: string }[];
 }
 
 export default function MakePageClient({ page, relatedPages }: MakePageProps) {
   return (
-    <div className="pt-[100px] pb-[80px]">
+    <div className="bg-white min-h-screen pt-[90px] pb-[80px]">
       <div className="page-container">
         {/* Hero */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <span className="text-sm tracking-[0.2em] text-gray-500 uppercase mb-4 block">
-            {page.title}
-          </span>
-          <h1 className="heading-lg-fluid mb-6 text-black">
-            {page.headline}
-          </h1>
-          <p className="text-lg text-gray-600 max-w-[600px] mx-auto mb-10">
-            {page.subheadline}
-          </p>
-          <a
-            href={page.ctaHref}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-black text-white rounded-full font-semibold hover:bg-gray-800 transition-colors"
-          >
-            {page.ctaText}
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
-        </motion.div>
+        <HeroSection
+          label={page.title}
+          headline={page.headline}
+          subheadline={page.subheadline}
+          ctaText={page.ctaText}
+          ctaHref={page.ctaHref}
+        />
+
+        {/* How it works */}
+        <HowItWorks steps={page.steps} />
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20">
-          {page.features.map((feature, index) => (
-            <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="p-8 rounded-[20px] border border-[#e5e5e5] bg-[#fafafa]"
-            >
-              <h3 className="text-xl font-semibold text-black mb-3">{feature.title}</h3>
-              <p className="text-gray-600 text-[15px] leading-[24px]">{feature.description}</p>
-            </motion.div>
-          ))}
-        </div>
+        <section className="mb-20">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-[32px] md:text-[40px] font-semibold tracking-[-1.5px] text-black mb-10 text-center"
+          >
+            What you get
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+            {page.features.map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                className="relative rounded-[20px]"
+              >
+                <div className="relative rounded-[20px] border border-neutral-200 bg-white p-8 h-full">
+                  <GlowingEffect
+                    disabled={false}
+                    glow={true}
+                    borderWidth={3}
+                    spread={80}
+                    proximity={64}
+                    inactiveZone={0.01}
+                  />
+                  <h3 className="text-lg font-semibold text-black mb-2">{feature.title}</h3>
+                  <p className="text-[15px] leading-[22px] text-neutral-500">{feature.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Social proof */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center text-neutral-400 text-sm tracking-wide mb-20"
+        >
+          Trusted by marketing teams building better ads, faster.
+        </motion.p>
+
+        {/* FAQ */}
+        <FAQSection faqs={page.faqs} />
 
         {/* CTA */}
         <motion.div
@@ -71,17 +96,17 @@ export default function MakePageClient({ page, relatedPages }: MakePageProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="bg-black rounded-[24px] p-12 text-center"
+          className="bg-black rounded-[24px] p-12 text-center mb-16"
         >
-          <h2 className="text-[32px] font-semibold text-white mb-4">
+          <h2 className="text-[28px] md:text-[32px] font-semibold text-white mb-4">
             Ready to create {page.title.toLowerCase()}?
           </h2>
-          <p className="text-gray-400 mb-8 max-w-[500px] mx-auto">
+          <p className="text-neutral-400 mb-8 max-w-[500px] mx-auto">
             Start creating professional video ads in minutes. No editing skills needed.
           </p>
           <a
             href={page.ctaHref}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black rounded-full font-semibold hover:bg-gray-100 transition-colors"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black rounded-full font-semibold hover:bg-neutral-200 transition-colors"
           >
             {page.ctaText}
           </a>
@@ -89,8 +114,8 @@ export default function MakePageClient({ page, relatedPages }: MakePageProps) {
 
         {/* Related Pages */}
         {relatedPages.length > 0 && (
-          <div className="mt-16 pt-8 border-t border-[#e5e5e5]">
-            <h3 className="text-sm font-medium uppercase tracking-[0.15em] text-gray-500 mb-4">
+          <div className="pt-8 border-t border-neutral-200">
+            <h3 className="text-sm font-medium uppercase tracking-[0.15em] text-neutral-400 mb-4">
               Related
             </h3>
             <div className="flex flex-wrap gap-3">
@@ -98,7 +123,7 @@ export default function MakePageClient({ page, relatedPages }: MakePageProps) {
                 <Link
                   key={rp.slug}
                   href={`/make/${rp.slug}`}
-                  className="px-4 py-2 rounded-full border border-[#e0e0e0] text-sm text-gray-700 hover:border-black/50 hover:text-black transition-colors"
+                  className="px-4 py-2 rounded-full border border-neutral-200 text-sm text-neutral-600 hover:border-black/50 hover:text-black transition-colors"
                 >
                   {rp.title}
                 </Link>

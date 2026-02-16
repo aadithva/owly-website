@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { makePages } from '@/content/make/_data';
 import { createMetadata } from '@/lib/metadata';
-import { softwareApplicationSchema } from '@/lib/schema';
+import { softwareApplicationSchema, faqSchema } from '@/lib/schema';
 import MakePageClient from './MakePageClient';
 
 export async function generateStaticParams() {
@@ -45,6 +45,12 @@ export default async function MakePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema()) }}
       />
+      {page.faqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(page.faqs)) }}
+        />
+      )}
       <MakePageClient page={page} relatedPages={relatedPages} />
     </>
   );

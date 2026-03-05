@@ -80,7 +80,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${didactGothic.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${spaceGrotesk.variable} ${didactGothic.variable}`}>
       <body className="min-h-screen flex flex-col font-sans">
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-DC9CB1PFQ7" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">

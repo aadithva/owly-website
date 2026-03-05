@@ -53,7 +53,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="flex flex-col gap-[10px] px-4 sm:px-6 lg:px-[38px] pt-6 sm:pt-8 lg:pt-[40px] max-w-[845px]"
+              className="flex flex-col gap-[10px] px-4 sm:px-6 lg:px-[38px] pt-6 sm:pt-8 lg:pt-[40px] max-w-[1024px]"
             >
               {/* Main Headline */}
               <div className="font-semibold text-white leading-[1.05] tracking-[-3px] sm:tracking-[-4px] lg:tracking-[-6.55px]">
@@ -61,7 +61,7 @@ export default function Home() {
                   <span className="whitespace-nowrap">Re-invent your Ad</span>
                 </h1>
                 <h2 className="text-[32px] sm:text-[50px] md:text-[70px] lg:text-[109px]">
-                  workflow
+                  <span className="whitespace-nowrap">workflow using AI</span>
                 </h2>
               </div>
 

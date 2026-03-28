@@ -196,8 +196,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Still not convinced Section - Testimonials */}
-        <div className="mt-[120px]">
+        {/* Testimonials Section - Hidden for now */}
+        {/* <div className="mt-[120px]">
           <TestimonialsSection
             title="Still not convinced"
             description="Stop launching ads based on guesswork. Use a structured creative workflow trusted by modern performance teams."
@@ -244,10 +244,10 @@ export default function Home() {
               },
             ]}
           />
-        </div>
+        </div> */}
 
         {/* Stats Counter Section */}
-        <StatsCounter />
+        <StatsCounter className="mt-[120px]" />
       </div>
       {/* End page-container - shine section needs full width */}
 

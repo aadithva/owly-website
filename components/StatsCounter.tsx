@@ -12,10 +12,10 @@ interface StatItem {
 }
 
 const stats: StatItem[] = [
-  { value: 500, suffix: 'K+', label: 'Videos Delivered' },
+  { value: 1000, suffix: '+', label: 'Videos Delivered' },
   { value: 50, suffix: '+', label: 'Languages Supported' },
   { value: 1000, suffix: '+', label: 'Brand Guidelines Extracted' },
-  { value: 99.9, suffix: '%', label: 'Platform Uptime' },
+  { value: 5, suffix: '+', label: 'Ad Formats Supported' },
 ];
 
 export const StatsCounter: React.FC<{ className?: string }> = ({ className }) => {
@@ -24,7 +24,7 @@ export const StatsCounter: React.FC<{ className?: string }> = ({ className }) =>
 
   return (
     <section className={cn('py-8 md:py-12 bg-white', className)}>
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-8 md:px-12">
+      <div className="max-w-[1200px] mx-auto px-4">
         <motion.div
           ref={statsRef}
           initial={{ opacity: 0, y: 30 }}
